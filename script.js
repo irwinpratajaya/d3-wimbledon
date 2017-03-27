@@ -9,9 +9,10 @@ marginLeft = 40
 // Drawing area
 let svg = d3.select('#results')
   .append('svg')
-  .attr('width', 1100)
-  .attr('height', 300)
+  .attr('width', width)
+  .attr('height', height)
   .style('background', '#cacaca')
+  .style('padding', '20px')
 
 // Data reloading
 let reload = () => {
@@ -50,18 +51,18 @@ let redraw = (data) => {
     .attr('y', (d) => {
       return height - yScale(d)
     })
-    .attr('width', 25)
+    .attr('width', 10)
     .attr('height', (d) => {
       return yScale(d)
     })
     .style('fill', 'green')
 
   // Axes Scale
-  // var axisScale = d3.scale.linear()
-  //                      .domain([0,100])
-  //                      .range([0,100]);
-  // var xAxis = d3.scaleLinear()
-  //               .scale(axisScale);
+  var xAxis = d3.axisBottom(xScale).ticks(data.length)
+
+  svg.append('g')
+    .call(xAxis)
+    .attr('transform', `translate(0,${height})`)
 }
 
 reload()
